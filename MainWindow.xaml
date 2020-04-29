@@ -5,79 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" d:DataContext="{d:DesignInstance local:MainVm}">
     <Window.Resources>
-        <Style  x:Key="headerText">
-            <Setter Property="TextBlock.FontStyle" Value="Normal" />
-            <Setter Property="TextBlock.FontSize" Value="14" />
-            <Setter Property="Control.Height" Value="Auto"/>
-            <Setter Property="Control.Width" Value="Auto"/>
-            <Setter Property="Control.Margin" Value="0"/>
-            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-            <Setter Property="TextBlock.Background" Value="Bisque"/>
-
-        </Style>
-        <Style x:Key="textComboBox" >
-            <Setter Property="Control.VerticalAlignment" Value="Center"/>
-            <Setter Property="Control.HorizontalAlignment" Value="Center"/>
-            <Setter Property="TextBlock.FontSize" Value="12" />
-         </Style>
-
-        <Style x:Key="textbox" >
-            <Setter Property="Control.Margin" Value="5"/>
-            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-           
-        </Style>
-
-
-
+        <ResourceDictionary Source="Styles.xaml" />
     </Window.Resources>
-      
-    
-    <Grid ShowGridLines="True">
+
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition/>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Тип" Style="{StaticResource headerText}" />
 
-        <TextBlock Text="Тип" Style="{StaticResource headerText}"   FontStyle="Normal"  />
-        <TextBlock Text="Заложение"  Grid.Column="1" Style="{StaticResource headerText}"   />
-                <TextBlock Text="Высота"   Grid.Column="2"  Style="{StaticResource headerText}" />
-                <TextBlock Text="Длина"  Grid.Column="3" Style="{StaticResource headerText}" />
-        
-        <ComboBox Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" 
-                  Height="Auto" Width="100" Margin="5" >
-            <TextBlock Text="Откос"   Style="{StaticResource textComboBox}"  />
-            <TextBlock Text="Вертикаль" Style="{StaticResource textComboBox}"/>
-            <TextBlock Text="Горизонталь" Style="{StaticResource textComboBox}"/>
+        <ComboBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  Height="Auto" Width="100" Margin="5"
+                  ItemsSource="{Binding Types}"
+                  SelectedItem="{Binding Type}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Style="{StaticResource textComboBox}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
 
+        <TextBlock Text="Заложение" Grid.Column="1" Grid.Row="0" Style="{StaticResource headerText}" />
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Slope}" Style="{StaticResource textBox}"  />
 
-        <TextBox x:Name="slope"  Grid.Column="1" Grid.Row="1" Text="1"  Style="{StaticResource textbox}" 
-                   PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown" />
+        <TextBlock Text="Высота" Grid.Column="2" Grid.Row="0" Style="{StaticResource headerText}" />
+        <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding VerticalSlope}" Style="{StaticResource textBox}"/>
 
-        <TextBox x:Name="verticSlope" Grid.Column="2" Text="1"  Grid.Row="1" Style="{StaticResource textbox}" PreviewTextInput="TextBox_PreviewTextInput"
-                 PreviewKeyDown="TextBox_PreviewKeyDown"/>
-
-        <TextBox x:Name="horizSlope" Grid.Column="3" Text="1" Grid.Row="1" Style="{StaticResource textbox}" 
-                 PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
- 
-       
-
-
-
-
-
-
-
+        <TextBlock Text="Длина" Grid.Column="3" Grid.Row="0" Style="{StaticResource headerText}" />
+        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding HorizontalSlope}" Style="{StaticResource textBox}"/>
+        
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" Margin="5">
+            <Button Content="Пуск" Command="{Binding TestCommand}" Padding="5"/>
+        </StackPanel>
     </Grid>
-    
 </Window>
