@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace WpfApp1
+﻿namespace WpfApp1
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
